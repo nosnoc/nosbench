@@ -8,7 +8,7 @@ lbg <= g(w,p) <= ubg
 ```
 We provide the problems in two forms: casADi expressions stored in json encoded structures and matlab `.mat` files which can be used with `v0.5.0` of [`nosnoc`](https://github.com/nurkanovic/nosnoc).
 
-The json structures contains the fields: `w`, `lbw`, `ubw`, `w0`, `p`, `p0`, `g_fun(w,p)` (general nonlinear constriants `g`), `lbg`, `ubg`, `G_fun(w,p)`, `H_fun(w,p)`, `augmented_objective_fun(w,p)` (objective `f(w,p)`).
+The json structures contains the fields: `w`, `lbw`, `ubw`, `w0`, `p`, `p0`, `g_fun(w,p)` (general nonlinear constriants `g`), `lbg`, `ubg`, `G_fun(w,p)`, `H_fun(w,p)` (Complementarity varibles), `augmented_objective_fun(w,p)` (objective `f(w,p)`).
 
 ## Literature
 [Solving mathematical programs with complementarity constraints arising in nonsmooth optimal control](https://arxiv.org/abs/2312.11022) \
