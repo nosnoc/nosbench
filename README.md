@@ -8,6 +8,7 @@ lbg <= g(w,p) <= ubg
 ```
 We provide the problems in two forms: casADi expressions stored in json encoded structures and matlab `.mat` files which can be used with `v0.5.0` of [`nosnoc`](https://github.com/nurkanovic/nosnoc).
 
+The json structures contains the fields: `w`, `lbw`, `ubw`, `w0`, `p`, `p0`, `g_fun(w,p)` (general nonlinear constriants `g`), `lbg`, `ubg`, `G_fun(w,p)`, `H_fun(w,p)`, `augmented_objective_fun(w,p)` (objective `f(w,p)`).
 
 ## Literature
 [Solving mathematical programs with complementarity constraints arising in nonsmooth optimal control](https://arxiv.org/abs/2312.11022) \
@@ -21,5 +22,18 @@ arXiv preprint 2023
       eprint={2312.11022},
       archivePrefix={arXiv},
       primaryClass={math.OC}
+}
+```
+
+[Evaluating Methods for Solving Mathematical Programs With Complementarity Constraints Arising From Nonsmooth Optimal Control](https://publications.syscop.de/Pozharskiy2023.pdf) \
+A. Pozharskiy
+Master's Thesis
+```
+@mastersthesis{Pozharskiy2023,
+	keywords = {syscop-public},
+	year = {2023},
+	school = {Albert-Ludwigs-University Freiburg},
+	author = {Anton Pozharskiy},
+	title = {Evaluating Methods for Solving Mathematical Programs With Complementarity Constraints Arising From Nonsmooth Optimal Control.},
 }
 ```
