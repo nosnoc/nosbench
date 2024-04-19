@@ -26,7 +26,7 @@ arXiv preprint 2023
 ```
 
 [Evaluating Methods for Solving Mathematical Programs With Complementarity Constraints Arising From Nonsmooth Optimal Control](https://publications.syscop.de/Pozharskiy2023.pdf) \
-A. Pozharskiy
+A. Pozharskiy \
 Master's Thesis
 ```
 @mastersthesis{Pozharskiy2023,
