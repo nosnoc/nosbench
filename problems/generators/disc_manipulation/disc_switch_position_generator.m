@@ -15,7 +15,7 @@ for cross_comp_mode=CROSS_COMP_MODES
     for lift=[false, true]
         for N_stg=N_STAGES
             for N_fe=N_FE
-                problem_options = NosnocProblemOptions();
+                problem_options = nosnoc.Options();
                 model = NosnocModel();
                 model.model_name = ['DSCSP'];
                 

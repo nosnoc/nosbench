@@ -17,7 +17,7 @@ for cross_comp_mode=CROSS_COMP_MODES
         for N_stg=N_STAGES
             for N_fe=N_FE
                 for fuel_cost_on=FUEL_COST
-                    problem_options = NosnocProblemOptions();
+                    problem_options = nosnoc.Options();
                     model = NosnocModel();
                     model.model_name = ['CARHYS'];
                     %%

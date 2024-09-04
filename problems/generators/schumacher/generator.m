@@ -30,7 +30,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                     for dcs_mode=DCS_MODES
                         for idx=1:length(CONDS)
                             solver_option = NosnocSolverOptions();
-                            problem_options = NosnocProblemOptions();
+                            problem_options = nosnoc.Options();
                             model = NosnocModel();
                             model.model_name = ['SCHUMI'];
 

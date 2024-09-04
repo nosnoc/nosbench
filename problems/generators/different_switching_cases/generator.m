@@ -9,7 +9,7 @@ LEVEL = 1;
 for dcs_mode = [DcsMode.Stewart, DcsMode.Step]
     for cross_comp_mode=[1,3,4,7]
         %% crossing
-        problem_options = NosnocProblemOptions();
+        problem_options = nosnoc.Options();
         model = NosnocModel();
         problem_options.n_s = 2;
         problem_options.N_finite_elements = N_fe;
@@ -35,7 +35,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Step]
         save(['../../level', num2str(LEVEL) ,'/', char(filename), '.mat'], 'model', 'problem_options');
 
         %% sliding_mode
-        problem_options = NosnocProblemOptions();
+        problem_options = nosnoc.Options();
         model = NosnocModel();
         problem_options.n_s = 2;
         problem_options.N_finite_elements = N_fe;
@@ -62,7 +62,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Step]
         save(['../../level', num2str(LEVEL) ,'/', char(filename), '.mat'], 'model', 'problem_options');
 
         %% spontaneous switch
-        problem_options = NosnocProblemOptions();
+        problem_options = nosnoc.Options();
         model = NosnocModel();
         problem_options.n_s = 2;
         problem_options.N_finite_elements = N_fe;
@@ -89,7 +89,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Step]
         save(['../../level', num2str(LEVEL) ,'/', char(filename), '.mat'], 'model', 'problem_options');
 
         %% leave_sliding_mode
-        problem_options = NosnocProblemOptions();
+        problem_options = nosnoc.Options();
         model = NosnocModel();
         problem_options.n_s = 2;
         problem_options.N_finite_elements = N_fe;

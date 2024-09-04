@@ -22,7 +22,7 @@ for cross_comp_mode=CROSS_COMP_MODES
             for n_s=N_S
                 for N_fe=N_FE
                     for nonlinear_constraint=NONLINEAR
-                        problem_options = NosnocProblemOptions();
+                        problem_options = nosnoc.Options();
                         model = NosnocModel();
                         model.model_name = ['DRNLND'];
                         

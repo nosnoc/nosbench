@@ -20,7 +20,7 @@ for cross_comp_mode=CROSS_COMP_MODES
         for N_fe=N_FE
             for n_s=N_S
                 for idx=1:length(CONDS)
-                    problem_options = NosnocProblemOptions();
+                    problem_options = nosnoc.Options();
                     model = NosnocModel();
                     model.model_name = ['TFPOB'];
                     

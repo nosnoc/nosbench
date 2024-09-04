@@ -19,7 +19,7 @@ for cross_comp_mode=CROSS_COMP_MODES
             for n_s=N_S
                 for N_fe=N_FE
                     for dcs_mode=DCS_MODES
-                        problem_options = NosnocProblemOptions();
+                        problem_options = nosnoc.Options();
                         model = NosnocModel();
                         model.model_name = ['MWFOCP'];
                         % Choosing the Runge - Kutta Method and number of stages

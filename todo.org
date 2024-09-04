@@ -1,0 +1,39 @@
+* IN_PROGRESS Modernize generators
+** TODO 968/earthquake_generator.m:
+** TODO 968/friction_oscilator_generator.m:
+** TODO 968/friction_variable_generator.m:
+** TODO 968/oscilating_mass_generator.m:
+** TODO blocks_with_friction/one_step_generator.m:
+** TODO bouncing_ball_1d_cls/generator.m:
+** TODO bouncing_ball_1d_tf/generator.m:
+** TODO cart_pole_with_friction/generator.m:
+** TODO different_switching_cases/generator.m:
+** TODO different_switching_cases/generator.m:
+** TODO different_switching_cases/generator.m:
+** TODO different_switching_cases/generator.m:
+** TODO disc_manipulation/disc_around_obstacle_generator.m:
+** TODO disc_manipulation/disc_manipultion_generator.m:
+** TODO disc_manipulation/disc_switch_position_generator.m:
+** TODO disc_manipulation_cls/generator.m:
+** TODO drone_landing/generator.m:
+** TODO hopper_robot_ocp/generator.m:
+** TODO monoped/simple_generator.m:
+** TODO ocp_motor_with_friction/normal_generator.m:
+** TODO ocp_motor_with_friction/time_optimal_generator.m:
+** TODO oscilator/generator.m:
+** TODO relay_feedback_system/one_step_generator.m:
+** TODO schumacher/generator.m:
+** TODO sliding_mode_ocp/generator.m:
+** TODO tank_cascade/generator.m:
+** TODO three_cart_ocp/generator.m:
+** TODO three_cart_ocp_cls/generator.m:
+** TODO time_freezing_ball_in_box/generator.m:
+** TODO time_freezing_pile_of_balls/generator.m:
+** TODO time_optimal_car/generator.m:
+** TODO time_optimal_car_hysteresis/generator.m:
+** TODO two_balls_cls/generator.m
+* TODO mpccsol benchmark framework
+Setup mpccsol options example and a generic framework.
+** 
+* TODO Reorganize nosbench to use packages
+
