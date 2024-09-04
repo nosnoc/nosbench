@@ -1,7 +1,7 @@
 function [model] = elastic_ball_in_box_model(omega)
 import casadi.*
 %% Discretization parameters
-model = NosnocModel();
+model = nosnoc.model.Pss();
 N_periods = 2;
 alpha0 = pi/4; % inital angle
 problem_options.T = N_periods*(2*pi/abs(omega));
@@ -118,7 +118,7 @@ model.f_q_T = 0;
 
 %%  general nonlinear constinrst
 model.g_path = u'*u;
-model.g_path_lb = -inf;
-model.g_path_ub = u_max_R^2;
+model.lbg_path = -inf;
+model.ubg_path = u_max_R^2;
 end
 

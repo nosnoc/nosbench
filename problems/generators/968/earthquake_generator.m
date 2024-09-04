@@ -21,7 +21,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                 for dcs_mode=DCS_MODES
                     problem_options = nosnoc.Options();
                     model = nosnoc.model.Pss();
-                    model.model_name = ['968EQ'];
+                    model_name = ['968EQ'];
                     problem_options.n_s = n_s;
                     problem_options.cross_comp_mode = cross_comp_mode;
                     problem_options.dcs_mode = dcs_mode;
@@ -29,7 +29,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                     model.x0 = INITIAL_POINTS{idx};
                     
                     problem_options.use_fesd = 1;       % switch detection method on/off
-                    problem_options.irk_scheme = 'GAUSS_LEGENDRE';
+                    problem_options.rk_scheme = 'GAUSS_LEGENDRE';
 
                     %% Time settings
                     k=210.125;
@@ -75,11 +75,15 @@ for cross_comp_mode=CROSS_COMP_MODES
                     model.S = S;
                     model.F = F;
                     %% Generate problem
-                    filename = generate_problem_name(model, problem_options, idx);
+                    filename = generate_problem_name(model_name, model, problem_options, idx);
                     %% Save problem
                     discrete_time_problem = generate_problem(model, problem_options);
-                    json = jsonencode(ocp_solver.discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
-                    fid = fopen(['../../vdx/level', num2str(LEVEL) ,'/', char(filename), '.json'], 'w');
+                    json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
+                    casadi_json = discrete_time_problem.to_casadi_json();
+                    fid = fopen(['../../vdx/', char(filename), '.json'], 'w');
+                    fprintf(fid, '%s', json);
+                    fclose(fid);
+                    fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
                     fprintf(fid, '%s', json);
                     fclose(fid);
                     index = index+1;

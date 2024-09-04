@@ -1,5 +1,4 @@
-function generate_problem(model, opts)
-
+function discrete_time_problem = generate_problem(model, opts)
     % Always process model and options
     opts.preprocess();
     model.verify_and_backfill(opts);
