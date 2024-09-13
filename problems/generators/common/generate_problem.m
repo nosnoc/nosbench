@@ -57,4 +57,7 @@ function discrete_time_problem = generate_problem(model, opts)
       otherwise
         error("nosnoc: Unknown model type.")
     end
+
+    discrete_time_problem.w.sort_by_index();
+    discrete_time_problem.g.sort_by_index();
 end
