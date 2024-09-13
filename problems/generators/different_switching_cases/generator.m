@@ -37,7 +37,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Heaviside]
         fprintf(fid, '%s', json);
         fclose(fid);
         fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', json);
+        fprintf(fid, '%s', casadi_json);
         fclose(fid);
         
         %% sliding_mode
@@ -70,7 +70,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Heaviside]
         fprintf(fid, '%s', json);
         fclose(fid);
         fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', json);
+        fprintf(fid, '%s', casadi_json);
         fclose(fid);
         
         %% spontaneous switch
@@ -103,7 +103,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Heaviside]
         fprintf(fid, '%s', json);
         fclose(fid);
         fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', json);
+        fprintf(fid, '%s', casadi_json);
         fclose(fid);
 
         %% leave_sliding_mode
@@ -136,7 +136,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Heaviside]
         fprintf(fid, '%s', json);
         fclose(fid);
         fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', json);
+        fprintf(fid, '%s', casadi_json);
         fclose(fid);
     end
 end

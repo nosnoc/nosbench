@@ -116,7 +116,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                         fprintf(fid, '%s', json);
                         fclose(fid);
                         fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-                        fprintf(fid, '%s', json);
+                        fprintf(fid, '%s', casadi_json);
                         fclose(fid);
                         index = index+1;
                     end
