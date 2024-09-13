@@ -144,7 +144,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                     model.lsq_u = {u,u_ref,R_control};
                     model.lsq_T = {x,x_target,Q_terminal};
                     %% Generate problem
-                    filename = generate_problem_name(model_name, model, problem_options, 1);
+                    filename = generate_problem_name(model_name, model, problem_options, idx);
                     %% Save problem
                     discrete_time_problem = generate_problem(model, problem_options);
                     json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);

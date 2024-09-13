@@ -113,7 +113,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                 model.f_q = (x-x_ref)'*Q*(x-x_ref)+ u'*R*u;
                 model.f_q_T = (x-x_ref)'*Q_terminal*(x-x_ref);
                 %% Generate problem
-                filename = generate_problem_name(model_name, model, problem_options, 1);
+                filename = generate_problem_name(model_name, model, problem_options, idx);
                 %% Save problem
                 discrete_time_problem = generate_problem(model, problem_options);
                 json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);

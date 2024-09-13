@@ -135,7 +135,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                         problem_options.g_path_at_fe = 1;
                         problem_options.g_path_at_stg = 1;
                         %% Generate problem
-                        filename = generate_problem_name(model_name, model, problem_options, 1);
+                        filename = generate_problem_name(model_name, model, problem_options, idx);
                         %% Save problem
                         discrete_time_problem = generate_problem(model, problem_options);
                         json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
