@@ -1,9 +1,16 @@
-function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx)
+function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx, bench_name)
     arguments
         problem_list(1,:) string
         options_list(1,:) cell
         solver_fun(1,1) function_handle
         use_vdx(1,1) logical = true
+        bench_name string = []
+    end
+    % process bench name
+    if ~isempty(bench_name)
+        BENCH_NAME = [char(bench_name), '_', char(datetime('today','Format','yyyy-MM-dd'))];
+        results_dir = ['~/results/NOSBENCH_results/', BENCH_NAME];
+        mkdir(results_dir);
     end
     n_problems = length(problem_list);
     n_options = length(options_list);
@@ -28,10 +35,10 @@ function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx
         instance = instances{ii};
         if use_vdx
             json = fileread([char(filepath) '/../problems/vdx/' char(instance.problem), '.json']);
-            problem = vdx.problems.Mpcc.from_json(json);
+            mpcc = vdx.problems.Mpcc.from_json(json);
         else
             json = fileread([char(filepath) '/../problems/casadi/' char(instance.problem), '.json']);
-            raw_mpcc = jsondecode();
+            raw_mpcc = jsondecode(json);
             mpcc.w = SX.deserialize(raw_mpcc.w);
             mpcc.p = SX.deserialize(raw_mpcc.p);
             mpcc.f_fun = Function.deserialize(raw_mpcc.f_fun);
@@ -42,13 +49,26 @@ function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx
             mpcc.G = mpcc.G_fun(mpcc.w, mpcc.p);
             mpcc.H_fun = Function.deserialize(raw_mpcc.H_fun);
             mpcc.H = mpcc.H_fun(mpcc.w, mpcc.p);
-            problem = mpcc;
         end
-        
-        stats = solver_fun(problem, instance.options);
+
+        if ~isempty(bench_name)
+            outfile = ['~/results/NOSBENCH_results/', BENCH_NAME, '/', char(instance.options.solver_name), '_', char(instance.problem), '.mat'];
+            if isfile(outfile)
+                disp(['Skipping: ' outfile])
+                continue;
+            end
+        end
+        stats = solver_fun(mpcc, instance.options);
         result.stats = stats;
         result.options = instance.options;
         result.problem_name = instance.problem;
         results{ii} = result;
+        if ~isempty(bench_name)
+            transparancy_hack_save(outfile, result);
+        end
     end
+end
+
+function transparancy_hack_save(filename, result)
+    save(filename, 'result');
 end
