@@ -112,14 +112,6 @@ for cross_comp_mode=CROSS_COMP_MODES
                 filename = generate_problem_name(model_name, model, problem_options, idx);
                 %% Save problem
                 discrete_time_problem = generate_problem(model, problem_options);
-                json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
-                casadi_json = discrete_time_problem.to_casadi_json();
-                fid = fopen(['../../vdx/', char(filename), '.json'], 'w');
-                fprintf(fid, '%s', json);
-                fclose(fid);
-                fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-                fprintf(fid, '%s', casadi_json);
-                fclose(fid);
                 index = index+1;
             end
         end

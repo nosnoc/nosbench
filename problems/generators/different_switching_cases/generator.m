@@ -30,15 +30,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Heaviside]
         %% Generate problem
         filename = generate_problem_name(model_name, model, problem_options, 1);
         %% Save problem
-        discrete_time_problem = generate_problem(model, problem_options);
-        json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
-        casadi_json = discrete_time_problem.to_casadi_json();
-        fid = fopen(['../../vdx/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', json);
-        fclose(fid);
-        fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', casadi_json);
-        fclose(fid);
+        discrete_time_problem = generate_problem(filename, model, problem_options);
         
         %% sliding_mode
         problem_options = nosnoc.Options();
@@ -63,15 +55,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Heaviside]
         %% Generate problem
         filename = generate_problem_name(model_name, model, problem_options, 1);
         %% Save problem
-        discrete_time_problem = generate_problem(model, problem_options);
-        json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
-        casadi_json = discrete_time_problem.to_casadi_json();
-        fid = fopen(['../../vdx/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', json);
-        fclose(fid);
-        fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', casadi_json);
-        fclose(fid);
+        discrete_time_problem = generate_problem(filename, model, problem_options);
         
         %% spontaneous switch
         problem_options = nosnoc.Options();
@@ -96,15 +80,7 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Heaviside]
         %% Generate problem
         filename = generate_problem_name(model_name, model, problem_options, 1);
         %% Save problem
-        discrete_time_problem = generate_problem(model, problem_options);
-        json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
-        casadi_json = discrete_time_problem.to_casadi_json();
-        fid = fopen(['../../vdx/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', json);
-        fclose(fid);
-        fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', casadi_json);
-        fclose(fid);
+        discrete_time_problem = generate_problem(filename, model, problem_options);
 
         %% leave_sliding_mode
         problem_options = nosnoc.Options();
@@ -129,14 +105,6 @@ for dcs_mode = [DcsMode.Stewart, DcsMode.Heaviside]
         %% Generate problem
         filename = generate_problem_name(model_name, model, problem_options, 1);
         %% Save problem
-        discrete_time_problem = generate_problem(model, problem_options);
-        json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
-        casadi_json = discrete_time_problem.to_casadi_json();
-        fid = fopen(['../../vdx/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', json);
-        fclose(fid);
-        fid = fopen(['../../casadi/', char(filename), '.json'], 'w');
-        fprintf(fid, '%s', casadi_json);
-        fclose(fid);
+        discrete_time_problem = generate_problem(filename, model, problem_options);
     end
 end
