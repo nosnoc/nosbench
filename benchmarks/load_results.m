@@ -15,4 +15,5 @@ function results = load_results(results_dir)
         result = load(path{1});
         results = [results, result];
     end
+    close(f)
 end
