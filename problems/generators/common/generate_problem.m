@@ -1,4 +1,4 @@
-function discrete_time_problem = generate_problem(model, opts)
+function discrete_time_problem = generate_problem(name ,model, opts)
     % Always process model and options
     opts.preprocess();
     model.verify_and_backfill(opts);
@@ -58,6 +58,29 @@ function discrete_time_problem = generate_problem(model, opts)
         error("nosnoc: Unknown model type.")
     end
 
+    % Do sorting
     discrete_time_problem.w.sort_by_index();
     discrete_time_problem.g.sort_by_index();
+
+    % create jsons
+    json = jsonencode(discrete_time_problem, "ConvertInfAndNaN", false, "PrettyPrint", true);
+    casadi_json = discrete_time_problem.to_casadi_json();
+    metadata.dims = model.dims;
+    metadata.opts = opts;
+    metadata_json = jsonencode(metadata, "ConvertInfAndNaN", false, "PrettyPrint", true);
+
+    % write vdx formatted json
+    fid = fopen(['../../vdx/', char(name), '.json'], 'w');
+    fprintf(fid, '%s', json);
+    fclose(fid);
+
+    % write casadi struct formatted json
+    fid = fopen(['../../casadi/', char(name), '.json'], 'w');
+    fprintf(fid, '%s', casadi_json);
+    fclose(fid);
+
+    % write metadata (dims, opts)
+    fid = fopen(['../../metadata/', char(name), '.json'], 'w');
+    fprintf(fid, '%s', metadata_json);
+    fclose(fid);
 end
