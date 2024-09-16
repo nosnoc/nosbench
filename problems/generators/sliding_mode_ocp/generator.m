@@ -62,6 +62,8 @@ for cross_comp_mode=CROSS_COMP_MODES
 
                             % Objective
                             model.f_q = 1*(v1^2+v2^2)+0*(u1^2+u2^2);
+
+                            idx = 1;
                         else
                             u_max = 2;
                             v0 = [];
@@ -75,6 +77,8 @@ for cross_comp_mode=CROSS_COMP_MODES
 
                             % Objective
                             model.f_q = u1^2+u2^2;
+
+                            idx = 2;
                         end
                         model.x0 = [2*pi/3;pi/3;v0];
                         model.x = x;
@@ -107,7 +111,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                         x_target = [-pi/6;-pi/4];
                         model.g_terminal = [x(1:2)-x_target(1:2)];
                         %% Generate problem
-                        filename = generate_problem_name(model_name, model, problem_options, 1);
+                        filename = generate_problem_name(model_name, model, problem_options, idx);
                         %% Save problem
                         discrete_time_problem = generate_problem(filename, model, problem_options);
                         index = index+1;

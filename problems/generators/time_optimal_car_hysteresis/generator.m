@@ -112,7 +112,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                 model.g_terminal = [q-q_goal;v-v_goal];
 
                 %% Generate problem
-                filename = generate_problem_name(model_name, model, problem_options, 1);
+                filename = generate_problem_name(model_name, model, problem_options, fuel_cost_on+1);
                 %% Save problem
                 discrete_time_problem = generate_problem(filename, model, problem_options);
                 index = index+1;
