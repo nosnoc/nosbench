@@ -111,7 +111,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                 %% Generate problem
                 filename = generate_problem_name(model_name, model, problem_options, idx);
                 %% Save problem
-                discrete_time_problem = generate_problem(model, problem_options);
+                discrete_time_problem = generate_problem(filename, model, problem_options);
                 index = index+1;
             end
         end
