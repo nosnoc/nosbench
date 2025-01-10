@@ -90,7 +90,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                 g_3 = norm([psi;w]-z3)^2;
                 g_4 = norm([psi;w]-z4)^2;
 
-                model.g_ind = [g_1;g_2;g_3;g_4];
+                model.g_indicator = [g_1;g_2;g_3;g_4];
 
                 % modes of the ODEs layers
                 f_A = [v;u;Pn;0;1];

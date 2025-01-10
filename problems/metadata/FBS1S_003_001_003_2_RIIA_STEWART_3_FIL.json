@@ -7,6 +7,7 @@
     "n_p_global": 0,
     "n_p_time_var": 0,
     "n_g_path": 0,
+    "n_g_comp": 0,
     "n_g_terminal": 0,
     "n_sys": 3,
     "n_c_sys": [
@@ -98,6 +99,8 @@
     "ub_p_vt": Infinity,
     "ub_n_vt": Infinity,
     "ub_alpha_vt": Infinity,
+    "lb_sdf_pts": -Infinity,
+    "ub_sdf_pts": Infinity,
     "pss_lift_step_functions": false,
     "n_depth_step_lifting": 2,
     "gcs_lift_gap_functions": true,
