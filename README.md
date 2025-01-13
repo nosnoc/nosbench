@@ -11,18 +11,19 @@ We provide the problems in two forms: casADi expressions stored in json encoded 
 The json structures contains the fields: `w`, `lbw`, `ubw`, `w0`, `p`, `p0`, `g_fun(w,p)` (general nonlinear constriants `g`), `lbg`, `ubg`, `G_fun(w,p)`, `H_fun(w,p)` (Complementarity varibles), `augmented_objective_fun(w,p)` (objective `f(w,p)`).
 
 ## Literature
-[Solving mathematical programs with complementarity constraints arising in nonsmooth optimal control](https://arxiv.org/abs/2312.11022) \
+[Solving mathematical programs with complementarity constraints arising in nonsmooth optimal control](https://link.springer.com/article/10.1007/s10013-024-00704-z) \
 A. Nurkanović, A. Pozharskiy, M. Diehl \
-arXiv preprint 2023
+Vietnam J. Math. (2024). 
 ```
-@article{Nurkanovic2023,
-      title={Solving mathematical programs with complementarity constraints arising in nonsmooth optimal control}, 
-      author={Armin Nurkanović and Anton Pozharskiy and Moritz Diehl},
-      year={2023},
-      eprint={2312.11022},
-      archivePrefix={arXiv},
-      primaryClass={math.OC}
+@article{Nurkanovic2024,
+  title={Solving mathematical programs with complementarity constraints arising in nonsmooth optimal control},
+  author={Nurkanovi{\'c}, Armin and Pozharskiy, Anton and Diehl, Moritz},
+  journal={Vietnam Journal of Mathematics},
+  pages={1--39},
+  year={2024},
+  publisher={Springer}
 }
+
 ```
 
 [Evaluating Methods for Solving Mathematical Programs With Complementarity Constraints Arising From Nonsmooth Optimal Control](https://publications.syscop.de/Pozharskiy2023.pdf) \
@@ -30,7 +31,6 @@ A. Pozharskiy \
 Master's Thesis
 ```
 @mastersthesis{Pozharskiy2023,
-	keywords = {syscop-public},
 	year = {2023},
 	school = {Albert-Ludwigs-University Freiburg},
 	author = {Anton Pozharskiy},
