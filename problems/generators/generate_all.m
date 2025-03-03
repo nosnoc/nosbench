@@ -5,18 +5,38 @@ function generate_all()
     orig_dir = pwd;
     c = parcluster;
     for ii=1:length(flist)
-        generator_file = flist(ii);
-        file = fullfile(generator_file.folder, generator_file.name);
-        [path, name, ~] = fileparts(file);
-        cd(path);
-        path
-        name
-        batch(name, 'CaptureDiary', true);
-        c.Jobs
+        cd(flist(ii).folder);
+        [~,name,~] = fileparts(flist(ii).name);
+        job = batch(name, 'CaptureDiary', true, 'AutoAttachFiles', false);
+        jobs(ii) = job;
+        %msg = char(formattedDisplayText(jobs, 'SuppressMarkup', true));
+        %update_msg(msg);
+
+        cd(orig_dir);
     end
-    cd(orig_dir);
+
+    while true
+        msg = char(formattedDisplayText(jobs, 'SuppressMarkup', true));
+        update_msg(msg);
+        all_done = true;
+        for job=jobs
+            all_done = all_done & strcmp(job.State, 'finished');
+        end
+        if all_done
+            break
+        end
+        pause(10);
+    end
 end
 
-function runfile(file)
-    run(file);
+function update_msg(msg)
+    ASCII_BKSP_CHAR = 8;
+    persistent prev_len;
+    if isempty(prev_len) 
+        prev_len = 0;
+    end
+    
+    %disp([ char(repmat(ASCII_BKSP_CHAR,1,prev_len)) msg]);
+    disp(msg);
+    prev_len = numel(msg)+1;
 end
