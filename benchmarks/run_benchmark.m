@@ -30,28 +30,33 @@ function [results,jobs] = run_benchmark(problem_list, options_list, solver_fun, 
     instances = instances(randperm(n_total));
     results = cell(n_total,1);
     [filepath,~,~] = fileparts(mfilename('fullpath'));
+
+    if use_vdx
+        system(['tar -xf ' fullfile(char(filepath), '../problems/vdx.tar.xz')]);
+        %mpcc = vdx.problems.Mpcc.from_json(json);
+    else
+        system(['tar -xf ' fullfile(char(filepath), '../problems/casadi.tar.xz')]);
+        % raw_mpcc = jsondecode(json);
+        % mpcc.w = SX.deserialize(raw_mpcc.w);
+        % mpcc.p = SX.deserialize(raw_mpcc.p);
+        % mpcc.f_fun = Function.deserialize(raw_mpcc.f_fun);
+        % mpcc.f = mpcc.f_fun(mpcc.w, mpcc.p);
+        % mpcc.g_fun = Function.deserialize(raw_mpcc.g_fun);
+        % mpcc.g = mpcc.f_fun(mpcc.w, mpcc.p);
+        % mpcc.G_fun = Function.deserialize(raw_mpcc.G_fun);
+        % mpcc.G = mpcc.G_fun(mpcc.w, mpcc.p);
+        % mpcc.H_fun = Function.deserialize(raw_mpcc.H_fun);
+        % mpcc.H = mpcc.H_fun(mpcc.w, mpcc.p);
+    end
     for ii=1:n_total
         ii
         instance = instances{ii};
         problem = instance{1};
         options = instance{2};
         if use_vdx
-            [~,json] = system(['tar -xf ' fullfile(char(filepath), '../problems/vdx.tar.xz') ' vdx/' char(problem) '.json --to-stdout']);
-            
-            mpcc = vdx.problems.Mpcc.from_json(json);
+            json = fileread([char(filepath) '/vdx/' char(problem), '.json']);
         else
-            [~,json] = system(['tar -xf ' fullfile(char(filepath), '../problems/casadi.tar.xz') ' vdx/', char(problem) '.json --to-stdout']);
-            raw_mpcc = jsondecode(json);
-            mpcc.w = SX.deserialize(raw_mpcc.w);
-            mpcc.p = SX.deserialize(raw_mpcc.p);
-            mpcc.f_fun = Function.deserialize(raw_mpcc.f_fun);
-            mpcc.f = mpcc.f_fun(mpcc.w, mpcc.p);
-            mpcc.g_fun = Function.deserialize(raw_mpcc.g_fun);
-            mpcc.g = mpcc.f_fun(mpcc.w, mpcc.p);
-            mpcc.G_fun = Function.deserialize(raw_mpcc.G_fun);
-            mpcc.G = mpcc.G_fun(mpcc.w, mpcc.p);
-            mpcc.H_fun = Function.deserialize(raw_mpcc.H_fun);
-            mpcc.H = mpcc.H_fun(mpcc.w, mpcc.p);
+            json = fileread([char(filepath) '/casadi/' char(problem), '.json']);
         end
 
         % TODO do restart again
@@ -66,4 +71,7 @@ function [results,jobs] = run_benchmark(problem_list, options_list, solver_fun, 
         jobs(ii) = job;
     end
     results = [];
+    !rm -rf casadi
+    !rm -rf vdx
+    !rm -rf metadata
 end
