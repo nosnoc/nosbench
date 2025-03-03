@@ -27,6 +27,13 @@ function generate_all()
         end
         pause(10);
     end
+
+    % tarball and compress using xz
+    !tar -c -v -I 'xz -9 -T0' -f ../casadi.tar.xz ../casadi/* ../metadata/*
+    !tar -c -v -I 'xz -9 -T0' -f ../vdx.tar.xz ../vdx/* ../metadata/*
+    !rm -rf ../vdx/*
+    !rm -rf ../casadi/*
+    !rm -rf ../metadata/*
 end
 
 function update_msg(msg)
