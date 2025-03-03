@@ -1,4 +1,4 @@
-function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx, bench_name)
+function [results,jobs] = run_benchmark(problem_list, options_list, solver_fun, use_vdx, bench_name)
     arguments
         problem_list(1,:) string
         options_list(1,:) cell
@@ -7,6 +7,7 @@ function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx
         bench_name string = []
     end
     % process bench name
+    % TODO(probably a better log file is needed)
     if ~isempty(bench_name)
         BENCH_NAME = [char(bench_name), '_', char(datetime('today','Format','yyyy-MM-dd'))];
         results_dir = ['~/results/NOSBENCH_results/', BENCH_NAME];
@@ -21,9 +22,7 @@ function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx
     
     for ii=1:n_problems
         for jj=1:n_options
-            instance.problem = problem_list(ii);
-            instance.options = options_list{jj};
-            instances{ii,jj} = instance;
+            instances{ii,jj} = {problem_list(ii),options_list{jj}};
         end
     end
 
@@ -32,12 +31,16 @@ function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx
     results = cell(n_total,1);
     [filepath,~,~] = fileparts(mfilename('fullpath'));
     for ii=1:n_total
+        ii
         instance = instances{ii};
+        problem = instance{1};
+        options = instance{2};
         if use_vdx
-            json = fileread([char(filepath) '/../problems/vdx/' char(instance.problem), '.json']);
+            [~,json] = system(['tar -xf ' fullfile(char(filepath), '../problems/vdx.tar.xz') ' vdx/' char(problem) '.json --to-stdout']);
+            
             mpcc = vdx.problems.Mpcc.from_json(json);
         else
-            json = fileread([char(filepath) '/../problems/casadi/' char(instance.problem), '.json']);
+            [~,json] = system(['tar -xf ' fullfile(char(filepath), '../problems/casadi.tar.xz') ' vdx/', char(problem) '.json --to-stdout']);
             raw_mpcc = jsondecode(json);
             mpcc.w = SX.deserialize(raw_mpcc.w);
             mpcc.p = SX.deserialize(raw_mpcc.p);
@@ -51,24 +54,16 @@ function results = run_benchmark(problem_list, options_list, solver_fun, use_vdx
             mpcc.H = mpcc.H_fun(mpcc.w, mpcc.p);
         end
 
-        if ~isempty(bench_name)
-            outfile = ['~/results/NOSBENCH_results/', BENCH_NAME, '/', char(instance.options.solver_name), '_', char(instance.problem), '.mat'];
-            if isfile(outfile)
-                disp(['Skipping: ' outfile])
-                continue;
-            end
-        end
-        stats = solver_fun(mpcc, instance.options);
-        result.stats = stats;
-        result.options = instance.options;
-        result.problem_name = instance.problem;
-        results{ii} = result;
-        if ~isempty(bench_name)
-            transparancy_hack_save(outfile, result);
-        end
+        % TODO do restart again
+        % if ~isempty(bench_name)
+        %     outfile = ['~/results/NOSBENCH_results/', BENCH_NAME, '/', char(instance.options.solver_name), '_', char(instance.problem), '.mat'];
+        %     if isfile(outfile)
+        %         disp(['Skipping: ' outfile])
+        %         continue;
+        %     end
+        % end
+        job = batch(solver_fun, 1, {json, options}, 'CaptureDiary', true, 'AutoAttachFiles', false);
+        jobs(ii) = job;
     end
-end
-
-function transparancy_hack_save(filename, result)
-    save(filename, 'result');
+    results = [];
 end
