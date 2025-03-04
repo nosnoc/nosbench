@@ -44,9 +44,9 @@ so3.normalize_homotopy_update = true;
 
 sopts = {so1,so2,so3};
 
-[res,jobs] = run_benchmark(problem_lists, sopts, @solve_with_nosnoc, true, "TEST_BENCH");
+[job,tasks] = run_benchmark(problem_lists, sopts, @solve_with_nosnoc, true, "TEST_BENCH");
 
-function stats = solve_with_nosnoc(json, options)
+function stats = solve_with_nosnoc(json, options, problem_name)
     mpcc = vdx.problems.Mpcc.from_json(json);
     mpcc.create_solver(options);
     stats = mpcc.solve();
