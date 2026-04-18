@@ -6,7 +6,7 @@ LEVEL = 3;
 
 CROSS_COMP_MODES = [1,3,4,7];
 N_STAGES = [50, 80];
-N_S = [4];
+N_S = [2,4];
 N_FE = [2];
 PATH = ["linear", "nonlinear", "track"];
 TIME_OPTIMAL = [0,1];
@@ -43,7 +43,6 @@ for cross_comp_mode=CROSS_COMP_MODES
                         problem_options.time_optimal_problem = CONDS{idx,2};
                         problem_options.T_final_max = 5*pi;
                         problem_options.T_final_min = 2;
-
                         
                         %% model equations
                         track_width = 0.5;
@@ -72,8 +71,9 @@ for cross_comp_mode=CROSS_COMP_MODES
                         model.u0 = [u_max;0];
                         %% modes of the PSS
                         Friction_max = 4;
-                        f_1 = [v;a*tangent+Friction_max*normal;s*(tangent'*v)];
-                        f_2 = [v;a*tangent-Friction_max*normal;s*(tangent'*v)];
+                        model.f_0 = [v;a*tangent;s*(tangent'*v)];
+                        f_1 = [zeros(2,1);Friction_max*normal;0];
+                        f_2 = [zeros(2,1);-Friction_max*normal;0];
                         % Switching functions and modes
                         model.c = normal'*v;
                         model.S = [1;-1];
@@ -88,9 +88,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                             xx = linspace(0,q_target(1),problem_options.N_stages);
                             yy = xx;
                           case 'nonlinear'
-                            omega = 3/8;
-                            omega = 1; 
-                            %         omega = 0.3;
+                            omega = 1;
                             model.g_path = qy-sin(omega*qx);
                             q_target = [3*pi;sin(omega*3*pi)];
                             xx = linspace(0,q_target(1),problem_options.N_stages);
@@ -110,7 +108,7 @@ for cross_comp_mode=CROSS_COMP_MODES
                           case 'chicane'
                             chicane_tightness = 1;
                             chicane_width = 2;
-                            q_target = [10;2*chicane_width];
+                            q_target = [3*pi;2*chicane_width];
                             model.g_path = qy-((chicane_width)+chicane_width*tanh(chicane_tightness*(qx-q_target(1)/2)));
                             xx = linspace(0,q_target(1),problem_options.N_stages);
                             yy = (chicane_width)+chicane_width*tanh(chicane_tightness*(xx-q_target(1)/2));
@@ -134,10 +132,12 @@ for cross_comp_mode=CROSS_COMP_MODES
                         % Constrainits at stage points
                         problem_options.g_path_at_fe = 1;
                         problem_options.g_path_at_stg = 1;
+                        alpha = [atan2(diff(yy),diff(xx)),0];
+                        x_guess = vertcat(xx,yy, zeros(2,problem_options.N_stages), alpha);
                         %% Generate problem
                         filename = generate_problem_name(model_name, model, problem_options, idx);
                         %% Save problem
-                        discrete_time_problem = generate_problem(filename, model, problem_options);
+                        discrete_time_problem = generate_problem(filename, model, problem_options, x_guess);
                         index = index+1;
                     end
                 end

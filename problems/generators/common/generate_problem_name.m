@@ -41,6 +41,8 @@ function name = generate_problem_name(model_name, model, problem_options, init_c
         catch
             source = "ELC";
         end
+    elseif class(model) == ?nosnoc.model.Pds
+        source = "PDS";
     else
         source = "FIL";
     end

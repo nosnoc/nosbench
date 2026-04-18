@@ -4,6 +4,9 @@ function generate_all()
     flist.name;
     orig_dir = pwd;
     c = parcluster;
+    !mkdir ../vdx
+    !mkdir ../casadi
+    !mkdir ../metadata
     for ii=1:length(flist)
         cd(flist(ii).folder);
         [~,name,~] = fileparts(flist(ii).name);
@@ -29,11 +32,12 @@ function generate_all()
     end
 
     % tarball and compress using xz
-    !tar -c -v -I 'xz -9 -T0' -f ../casadi.tar.xz ../casadi/* ../metadata/*
-    !tar -c -v -I 'xz -9 -T0' -f ../vdx.tar.xz ../vdx/* ../metadata/*
-    !rm -rf ../vdx/*
-    !rm -rf ../casadi/*
-    !rm -rf ../metadata/*
+    % Broken by R2025a
+    %!tar -c -v -I 'xz -9 -T0' -f ../casadi.tar.xz ../casadi/* ../metadata/*
+    %!tar -c -v -I 'xz -9 -T0' -f ../vdx.tar.xz ../vdx/* ../metadata/*
+    %!rm -rf ../vdx/*
+    %!rm -rf ../casadi/*
+    %!rm -rf ../metadata/*
 end
 
 function update_msg(msg)

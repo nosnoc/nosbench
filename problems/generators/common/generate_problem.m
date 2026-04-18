@@ -1,4 +1,4 @@
-function discrete_time_problem = generate_problem(name ,model, opts)
+function discrete_time_problem = generate_problem(name ,model, opts, x_guess)
     % Always process model and options
     opts.preprocess();
     model.verify_and_backfill(opts);
@@ -56,6 +56,16 @@ function discrete_time_problem = generate_problem(name ,model, opts)
         discrete_time_problem.populate_problem();
       otherwise
         error("nosnoc: Unknown model type.")
+    end
+    
+    if exist("x_guess","var")
+        for ii=1:opts.N_stages
+            for jj=1:opts.N_finite_elements(ii)
+                for kk=1:opts.n_s
+                    discrete_time_problem.w.x(ii,jj,kk).init = x_guess(:,ii);
+                end
+            end
+        end
     end
 
     % Do sorting
